@@ -4,6 +4,8 @@ title: Data Grid - Group & Pivot
 
 # Data Grid - Group & Pivot
 
+{{"demo": "pages/components/data-grid/group-pivot/playground.js", "bg": "inline", "defaultCodeOpen": false}}
+
 <p class="description">Use grouping, pivoting, and more to analyze the data in depth.</p>
 
 ## Row grouping [<span class="plan-premium"></span>](https://mui.com/store/items/material-ui-pro/)

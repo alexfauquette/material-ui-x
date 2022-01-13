@@ -8,7 +8,7 @@ function getLicenseErrorMessage(licenseStatus: LicenseStatus) {
     case LicenseStatus.Invalid:
       return 'MUI X Invalid License';
     case LicenseStatus.NotFound:
-      return 'MUI X Unlicensed product';
+      return "";//'MUI X Unlicensed product';
     default:
       throw new Error('MUI: Unhandled license status.');
   }

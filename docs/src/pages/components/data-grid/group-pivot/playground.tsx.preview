@@ -1,0 +1,7 @@
+<DataGridPro
+  apiRef={apiRef}
+  columns={cleanedColumns}
+  rows={topMovies}
+  experimentalFeatures={{ rowGrouping: true }}
+  hideFooter
+/>
