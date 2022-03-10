@@ -135,6 +135,11 @@ function GridFilterPanel(props: GridFilterPanelProps) {
             focusElementRef={index === items.length - 1 ? lastFilterRef : null}
             linkOperators={linkOperators}
             columnsSort={columnsSort}
+            components={rootProps.components}
+            componentsProps={rootProps.componentsProps}
+            classes={rootProps.classes}
+            apiRef={apiRef}
+            disableMultipleColumnsFiltering={rootProps.disableMultipleColumnsFiltering}
             {...filterFormProps}
           />
         ))}
