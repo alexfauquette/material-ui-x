@@ -1,10 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { TextFieldProps } from '@mui/material/TextField';
+import MUITextField, { TextFieldProps } from '@mui/material/TextField';
 import { unstable_useId as useId } from '@mui/material/utils';
 import { GridLoadIcon } from '../../icons';
 import { GridFilterInputValueProps } from './GridFilterInputValueProps';
-import { useGridRootProps } from '../../../hooks/utils/useGridRootProps';
 
 export type GridFilterInputDateProps = GridFilterInputValueProps &
   TextFieldProps & { type?: 'date' | 'datetime-local' };
@@ -12,12 +11,16 @@ export type GridFilterInputDateProps = GridFilterInputValueProps &
 export const SUBMIT_FILTER_DATE_STROKE_TIME = 500;
 
 function GridFilterInputDate(props: GridFilterInputDateProps) {
-  const { item, applyValue, type, apiRef, focusElementRef, InputProps, ...other } = props;
+  const { item, applyValue, type, apiRef, focusElementRef, components, componentsProps, InputProps, ...other } = props;
   const filterTimeout = React.useRef<any>();
   const [filterValueState, setFilterValueState] = React.useState(item.value ?? '');
   const [applying, setIsApplying] = React.useState(false);
   const id = useId();
-  const rootProps = useGridRootProps();
+
+  const TextField = React.useMemo(
+    () => components?.BaseTextField || MUITextField,
+    [components?.BaseTextField],
+  );
 
   const onFilterChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,7 +50,7 @@ function GridFilterInputDate(props: GridFilterInputDateProps) {
   }, [item.value]);
 
   return (
-    <rootProps.components.BaseTextField
+    <TextField
       id={id}
       label={apiRef.current.getLocaleText('filterPanelInputLabel')}
       placeholder={apiRef.current.getLocaleText('filterPanelInputPlaceholder')}
@@ -68,7 +71,7 @@ function GridFilterInputDate(props: GridFilterInputDateProps) {
         },
       }}
       {...other}
-      {...rootProps.componentsProps?.baseTextField}
+      {...componentsProps?.baseTextField}
     />
   );
 }

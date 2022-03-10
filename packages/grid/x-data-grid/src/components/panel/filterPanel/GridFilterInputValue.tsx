@@ -1,12 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { TextFieldProps } from '@mui/material/TextField';
+import MUITextField, { TextFieldProps } from '@mui/material/TextField';
 import { unstable_useId as useId } from '@mui/material/utils';
 import { GridLoadIcon } from '../../icons';
 import { GridFilterInputValueProps } from './GridFilterInputValueProps';
 import { GridColDef } from '../../../models/colDef/gridColDef';
 import { GridApiCommunity } from '../../../models/api/gridApiCommunity';
-import { useGridRootProps } from '../../../hooks/utils/useGridRootProps';
 import { getValueFromValueOptions } from './filterPanelUtils';
 
 const warnedOnce: Record<string, boolean> = {};
@@ -50,7 +49,7 @@ export interface GridTypeFilterInputValueProps extends GridFilterInputValueProps
 }
 
 function GridFilterInputValue(props: GridTypeFilterInputValueProps & TextFieldProps) {
-  const { item, applyValue, type, apiRef, focusElementRef, ...others } = props;
+  const { item, applyValue, type, apiRef, focusElementRef, components, componentsProps, ...others } = props;
   if (
     process.env.NODE_ENV !== 'production' &&
     ['date', 'datetime-local', 'singleSelect'].includes(type as string) &&
@@ -62,19 +61,19 @@ function GridFilterInputValue(props: GridTypeFilterInputValueProps & TextFieldPr
   const [filterValueState, setFilterValueState] = React.useState(item.value ?? '');
   const [applying, setIsApplying] = React.useState(false);
   const id = useId();
-  const rootProps = useGridRootProps();
+
   const singleSelectProps: TextFieldProps =
     type === 'singleSelect'
       ? {
-          select: true,
-          SelectProps: {
-            native: true,
-          },
-          children: renderSingleSelectOptions(
-            apiRef.current.getColumn(item.columnField),
-            apiRef.current,
-          ),
-        }
+        select: true,
+        SelectProps: {
+          native: true,
+        },
+        children: renderSingleSelectOptions(
+          apiRef.current.getColumn(item.columnField),
+          apiRef.current,
+        ),
+      }
       : {};
 
   const onFilterChange = React.useCallback(
@@ -116,8 +115,14 @@ function GridFilterInputValue(props: GridTypeFilterInputValueProps & TextFieldPr
 
   const InputProps = applying ? { endAdornment: <GridLoadIcon /> } : others.InputProps;
 
+
+  const TextField = React.useMemo(
+    () => components?.BaseTextField || MUITextField,
+    [components?.BaseTextField],
+  );
+
   return (
-    <rootProps.components.BaseTextField
+    <TextField
       id={id}
       label={apiRef.current.getLocaleText('filterPanelInputLabel')}
       placeholder={apiRef.current.getLocaleText('filterPanelInputPlaceholder')}
@@ -132,7 +137,7 @@ function GridFilterInputValue(props: GridTypeFilterInputValueProps & TextFieldPr
       inputRef={focusElementRef}
       {...singleSelectProps}
       {...others}
-      {...rootProps.componentsProps?.baseTextField}
+      {...componentsProps?.baseTextField}
     />
   );
 }

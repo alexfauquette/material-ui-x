@@ -405,6 +405,8 @@ function GridFilterForm(props: GridFilterFormProps) {
             item={item}
             applyValue={applyFilterChanges}
             focusElementRef={valueRef}
+            componentsProps={rootProps.componentsProps}
+            components={rootProps.components}
             {...currentOperator.InputComponentProps}
           />
         ) : null}

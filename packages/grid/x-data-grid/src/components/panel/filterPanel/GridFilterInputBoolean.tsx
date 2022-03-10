@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { TextFieldProps } from '@mui/material/TextField';
+import MUITextField, { TextFieldProps } from '@mui/material/TextField';
 import { GridFilterInputValueProps } from './GridFilterInputValueProps';
-import { useGridRootProps } from '../../../hooks/utils/useGridRootProps';
 
 export function GridFilterInputBoolean(props: GridFilterInputValueProps & TextFieldProps) {
-  const { item, applyValue, apiRef, focusElementRef, ...others } = props;
+  const { item, applyValue, apiRef, focusElementRef, components, componentsProps, ...others } =
+    props;
   const [filterValueState, setFilterValueState] = React.useState(item.value || '');
-  const rootProps = useGridRootProps();
+
+  const TextField = React.useMemo(
+    () => components?.BaseTextField || MUITextField,
+    [components?.BaseTextField],
+  );
 
   const onFilterChange = React.useCallback(
     (event) => {
@@ -22,7 +26,7 @@ export function GridFilterInputBoolean(props: GridFilterInputValueProps & TextFi
   }, [item.value]);
 
   return (
-    <rootProps.components.BaseTextField
+    <TextField
       label={apiRef.current.getLocaleText('filterPanelInputLabel')}
       value={filterValueState}
       onChange={onFilterChange}
@@ -36,11 +40,11 @@ export function GridFilterInputBoolean(props: GridFilterInputValueProps & TextFi
       }}
       inputRef={focusElementRef}
       {...others}
-      {...rootProps.componentsProps?.baseTextField}
+      {...componentsProps?.baseTextField}
     >
       <option value="">{apiRef.current.getLocaleText('filterValueAny')}</option>
       <option value="true">{apiRef.current.getLocaleText('filterValueTrue')}</option>
       <option value="false">{apiRef.current.getLocaleText('filterValueFalse')}</option>
-    </rootProps.components.BaseTextField>
+    </TextField>
   );
 }
