@@ -23,8 +23,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Open sha file
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
           name: pull-request-sha
       - name: Grab pull request sha1
         run: |
