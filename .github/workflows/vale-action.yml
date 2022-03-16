@@ -5,8 +5,17 @@ on:
     workflows: [PR check]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print github context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
   prose:
     runs-on: ubuntu-latest
     steps:
