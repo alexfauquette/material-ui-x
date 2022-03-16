@@ -14,7 +14,7 @@ The most commonly encountered conformance guidelines for accessibility are:
 - [ADA](https://www.ada.gov/) - US Department of Justice
 - [Section 508](https://www.section508.gov/) - US federal agencies
 
-WCAG 2.0 has three levels of conformance; A, AA, and AAA (in order of conformance).
+WCAG 2.0 has three levels in at the let see what of conformance; A, AA, and AAA (in order of conformance).
 As meeting WCAG 2.0 level AA guidelines also meets the ADA and Section 508 standards, it's likely the standard that most organizations will want to target.
 
 The [WAI-ARIA authoring practices](https://www.w3.org/TR/wai-aria-practices/#grid) provides valuable insight on how to make the grid highly accessible.
