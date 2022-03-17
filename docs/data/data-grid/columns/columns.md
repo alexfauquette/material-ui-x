@@ -4,6 +4,16 @@ title: Data Grid - Columns
 
 # Data Grid - Columns
 
+Lines that break rules
+
+{{"demo": "StylingHeaderGrid.js", "bg": "inline"}}
+For one-off styles, the `sx` prop can be used.
+<p class="description">The grid CSS can be easily overwritten.</p>
+**Note**: Disabling the virtualization will increase the size of the DOM and drastically reduce the performance. Use it only for testing purposes or on small datasets.
+By default, 2 columns are rendered outside of the viewport. You can change this option with the `columnBuffer` prop. The following demo renders 1,000 columns in total:
+
+
+
 <p class="description">This section goes in details on the aspects of the columns you need to know.</p>
 
 ## Column definitions
