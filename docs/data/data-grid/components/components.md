@@ -64,7 +64,7 @@ The full list of overridable components can be found on the [`GridSlotsComponent
 
 ### Column menu
 
-As mentioned above, the column menu is a component slot that can be recomposed easily and customized on each column as in the demo below.
+As mentioned above, the column menu is a component slot that can be recomposed easily and customized on each column as in the demo below. and up and down (e.g.)
 
 {{"demo": "CustomColumnMenu.js", "bg": "inline"}}
 
