@@ -9,14 +9,14 @@ title: Data Grid - Virtualization
 DOM virtualization is the feature that allows the grid to handle an unlimited\* number of rows and columns.
 This is a built-in feature of the rendering engine and greatly improves rendering performance.
 
-_\*unlimited: Browsers set a limit on the number of pixels a scroll container can host: 17.5 million pixels on Firefox, 33.5 million pixels on Chrome, Edge, and Safari. A [reproduction](https://codesandbox.io/s/beautiful-silence-1yifo?file=/src/App.js)._
+_\*unlimited: Browsers set a  limit on the number of pixels a scroll container can host: 17.5 million pixels on Firefox, 33.5 million pixels on Chrome, Edge, and Safari. A [reproduction](https://codesandbox.io/s/beautiful-silence-1yifo?file=/src/App.js)._
 
 ## Row virtualization [<span class="plan-pro"></span>](https://mui.com/store/items/material-ui-pro/)
 
 Row virtualization is the insertion and removal of rows as the grid scrolls vertically.
 
 The grid renders twice as many rows as are visible. It isn't configurable yet.
-Row virtualization is limited to 100 rows in the `DataGrid` component.
+Row virtualization is limited to 100 rows in the  test `DataGrid` component.
 
 ## Column virtualization
 
