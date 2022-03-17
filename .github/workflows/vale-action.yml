@@ -33,7 +33,7 @@ jobs:
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
 
       - name: Vale
-        uses: errata-ai/vale-action@v1
+        uses: errata-ai/vale-action@master
         with:
           styles: |
             https://github.com/errata-ai/Google/releases/latest/download/Google.zip
