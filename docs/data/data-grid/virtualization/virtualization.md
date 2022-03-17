@@ -4,7 +4,7 @@ title: Data Grid - Virtualization
 
 # Data Grid - Virtualization
 
-<p class="description">The grid is high performing thanks to its rows and columns virtualization engine.</p>
+<p class="description">The grid is high performing with thanks to its rows and columns virtualization engine.</p>
 
 DOM virtualization is the feature that allows the grid to handle an unlimited\* number of rows and columns.
 This is a built-in feature of the rendering engine and greatly improves rendering performance.
