@@ -8,6 +8,8 @@ title: Data Grid - Accessibility
 
 ## Guidelines
 
+it is a above dec e.g. to (I assume show errors)
+
 The most commonly encountered conformance guidelines for accessibility are:
 
 - [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) - Globally accepted standard
