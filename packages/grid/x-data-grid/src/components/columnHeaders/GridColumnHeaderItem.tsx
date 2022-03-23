@@ -234,29 +234,30 @@ function GridColumnHeaderItem(props: GridColumnHeaderItemProps) {
         className={classes.draggableContainer}
         draggable={!rootProps.disableColumnReorder && !disableReorder && !column.disableReorder}
         {...draggableEventHandlers}
+        style={{ flexDirection: 'column' }}
       >
-        <div className={classes.titleContainer}>
-          <div className={classes.titleContainerContent}>
-            {headerComponent || (
-              <GridColumnHeaderTitle
-                label={column.headerName ?? column.field}
-                description={column.description}
-                columnWidth={width}
-              />
-            )}
+        <div style={{ display: 'flex' }}>
+          <div className={classes.titleContainer}>
+            <div className={classes.titleContainerContent}>
+              {headerComponent || (
+                <GridColumnHeaderTitle
+                  label={column.headerName ?? column.field}
+                  description={column.description}
+                  columnWidth={width}
+                />
+              )}
+            </div>
+            {columnTitleIconButtons}
           </div>
-
-          {columnTitleIconButtons}
+          {columnMenuIconButton}
         </div>
-        {columnMenuIconButton}
+        <div>
+          <input onClick={e => e.stopPropagation()}
+            onKeyDown={e => e.stopPropagation()}
+            style={{ width: "100%" }} />
+        </div>
       </div>
-      <GridColumnHeaderSeparator
-        resizable={!rootProps.disableColumnResize && !!column.resizable}
-        resizing={isResizing}
-        height={headerHeight}
-        onMouseDown={publish(GridEvents.columnSeparatorMouseDown)}
-        side={separatorSide}
-      />
+
       <GridColumnHeaderMenu
         columnMenuId={columnMenuId!}
         columnMenuButtonId={columnMenuButtonId!}
@@ -267,7 +268,14 @@ function GridColumnHeaderItem(props: GridColumnHeaderItemProps) {
         contentComponentProps={rootProps.componentsProps?.columnMenu}
         onExited={handleExited}
       />
-    </div>
+      <GridColumnHeaderSeparator
+        resizable={!rootProps.disableColumnResize && !!column.resizable}
+        resizing={isResizing}
+        height={headerHeight}
+        onMouseDown={publish(GridEvents.columnSeparatorMouseDown)}
+        side={separatorSide}
+      />
+    </div >
   );
 }
 

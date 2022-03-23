@@ -11,7 +11,7 @@ import {
   gridTabIndexCellSelector,
   gridFocusColumnHeaderSelector,
 } from '../focus/gridFocusStateSelector';
-import { gridDensityHeaderHeightSelector } from '../density/densitySelector';
+import { gridDensityHeaderFilterHeightSelector, gridDensityHeaderHeightSelector } from '../density/densitySelector';
 import { gridFilterActiveItemsLookupSelector } from '../filter/gridFilterSelector';
 import { gridSortColumnLookupSelector } from '../sorting/gridSortingSelector';
 import { gridColumnMenuSelector } from '../columnMenu/columnMenuSelector';
@@ -39,6 +39,7 @@ export const useGridColumnHeaders = (props: UseGridColumnHeadersProps) => {
   const cellTabIndexState = useGridSelector(apiRef, gridTabIndexCellSelector);
   const columnHeaderFocus = useGridSelector(apiRef, gridFocusColumnHeaderSelector);
   const headerHeight = useGridSelector(apiRef, gridDensityHeaderHeightSelector);
+  const headerFilterHeight = useGridSelector(apiRef, gridDensityHeaderFilterHeightSelector);
   const filterColumnLookup = useGridSelector(apiRef, gridFilterActiveItemsLookupSelector);
   const sortColumnLookup = useGridSelector(apiRef, gridSortColumnLookupSelector);
   const columnMenuState = useGridSelector(apiRef, gridColumnMenuSelector);
@@ -163,7 +164,7 @@ export const useGridColumnHeaders = (props: UseGridColumnHeadersProps) => {
       const hasTabbableElement = !(tabIndexState === null && cellTabIndexState === null);
       const tabIndex =
         (tabIndexState !== null && tabIndexState.field === column.field) ||
-        (isFirstColumn && !hasTabbableElement)
+          (isFirstColumn && !hasTabbableElement)
           ? 0
           : -1;
       const hasFocus = columnHeaderFocus !== null && columnHeaderFocus.field === column.field;
@@ -195,8 +196,8 @@ export const useGridColumnHeaders = (props: UseGridColumnHeadersProps) => {
   };
 
   const rootStyle = {
-    minHeight: headerHeight,
-    maxHeight: headerHeight,
+    minHeight: headerHeight + headerFilterHeight,
+    maxHeight: headerHeight + headerFilterHeight,
     lineHeight: `${headerHeight}px`,
   };
 

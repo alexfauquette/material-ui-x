@@ -24,13 +24,16 @@ const getUpdatedDensityState = (
       return {
         value: newDensity,
         headerHeight: Math.floor(newHeaderHeight * COMPACT_DENSITY_FACTOR),
+        headerFilterHeight: Math.floor(newHeaderHeight * COMPACT_DENSITY_FACTOR),
         rowHeight: Math.floor(newRowHeight * COMPACT_DENSITY_FACTOR),
         factor: COMPACT_DENSITY_FACTOR,
+
       };
     case GridDensityTypes.Comfortable:
       return {
         value: newDensity,
         headerHeight: Math.floor(newHeaderHeight * COMFORTABLE_DENSITY_FACTOR),
+        headerFilterHeight: Math.floor(newHeaderHeight * COMFORTABLE_DENSITY_FACTOR),
         rowHeight: Math.floor(newRowHeight * COMFORTABLE_DENSITY_FACTOR),
         factor: COMFORTABLE_DENSITY_FACTOR,
       };
@@ -38,6 +41,7 @@ const getUpdatedDensityState = (
       return {
         value: newDensity,
         headerHeight: newHeaderHeight,
+        headerFilterHeight: newHeaderHeight,
         rowHeight: newRowHeight,
         factor: 1,
       };

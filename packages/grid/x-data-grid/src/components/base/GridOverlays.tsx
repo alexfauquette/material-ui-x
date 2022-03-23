@@ -5,13 +5,14 @@ import { gridVisibleRowCountSelector } from '../../hooks/features/filter/gridFil
 import { gridRowCountSelector } from '../../hooks/features/rows/gridRowsSelector';
 import { useGridApiContext } from '../../hooks/utils/useGridApiContext';
 import { useGridRootProps } from '../../hooks/utils/useGridRootProps';
-import { gridDensityHeaderHeightSelector } from '../../hooks/features/density/densitySelector';
+import { gridDensityHeaderFilterHeightSelector, gridDensityHeaderHeightSelector } from '../../hooks/features/density/densitySelector';
 import { GridEvents } from '../../models/events';
 
 function GridOverlayWrapper(props: React.PropsWithChildren<{}>) {
   const apiRef = useGridApiContext();
   const rootProps = useGridRootProps();
   const headerHeight = useGridSelector(apiRef, gridDensityHeaderHeightSelector);
+  const headerFilterHeight = useGridSelector(apiRef, gridDensityHeaderFilterHeightSelector);
 
   const [viewportInnerSize, setViewportInnerSize] = React.useState(
     () => apiRef.current.getRootDimensions()?.viewportInnerSize ?? null,
@@ -43,7 +44,7 @@ function GridOverlayWrapper(props: React.PropsWithChildren<{}>) {
         height,
         width: viewportInnerSize?.width ?? 0,
         position: 'absolute',
-        top: headerHeight,
+        top: headerHeight + headerFilterHeight,
         bottom: height === 'auto' ? 0 : undefined,
       }}
       {...props}
