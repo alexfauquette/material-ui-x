@@ -20,3 +20,8 @@ jobs:
           name: pull-request-sha
           path: pr-sha.txt
           retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pull-request-number
+          path: pr-number.txt
+          retention-days: 1

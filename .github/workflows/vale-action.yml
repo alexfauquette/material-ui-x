@@ -33,13 +33,23 @@ jobs:
           pr_sha=`cat pr-sha.txt`
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
 
+      - name: Open PR number file
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pull-request-number
+      - name: Grab pull request number
+        run: |
+          pr_number=`cat pr-number.txt`
+          echo "PR_NUMBER=$pr_number" >> $GITHUB_ENV
+
       - name: Vale
         uses: errata-ai/vale-action@master
         with:
           styles: |
             https://github.com/errata-ai/Google/releases/latest/download/Google.zip
             https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
-            
+
           onlyAnnotateModifiedLines: true
 
           files: docs/data
@@ -48,3 +58,4 @@ jobs:
           # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           OVERRIDE_GITHUB_SHA: ${{env.PR_SHA}}
+          OVERRIDE_PR_NUMBER: ${{env.PR_NUMBER}}
