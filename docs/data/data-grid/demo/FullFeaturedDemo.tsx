@@ -36,14 +36,12 @@ const AntDesignStyledDataGridPro = styled(DataGridPro)(({ theme }) => ({
     display: 'none',
   },
   '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-    borderRight: `1px solid ${
-      theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-    }`,
+    borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+      }`,
   },
   '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-    borderBottom: `1px solid ${
-      theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-    }`,
+    borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+      }`,
   },
   '& .MuiDataGrid-cell': {
     color:
@@ -69,14 +67,12 @@ const AntDesignStyledDataGridPro = styled(DataGridPro)(({ theme }) => ({
       display: 'none',
     },
     '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-      borderRight: `1px solid ${
-        theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-      }`,
+      borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+        }`,
     },
     '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-      borderBottom: `1px solid ${
-        theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-      }`,
+      borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
+        }`,
     },
     '& .MuiDataGrid-cell': {
       color:
@@ -91,9 +87,8 @@ const AntDesignStyledDataGridPro = styled(DataGridPro)(({ theme }) => ({
       width: 16,
       height: 16,
       backgroundColor: 'transparent',
-      border: `1px solid ${
-        theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
-      }`,
+      border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
+        }`,
       borderRadius: 2,
     },
     '& .MuiCheckbox-root svg path': {
@@ -299,9 +294,9 @@ export default function FullFeaturedDemo() {
       ): GridPaginationSettings => {
         if (
           currentPaginationSettings.pagination ===
-            newPaginationSettings.pagination &&
+          newPaginationSettings.pagination &&
           currentPaginationSettings.autoPageSize ===
-            newPaginationSettings.autoPageSize &&
+          newPaginationSettings.autoPageSize &&
           currentPaginationSettings.pageSize === newPaginationSettings.pageSize
         ) {
           return currentPaginationSettings;
@@ -329,7 +324,7 @@ export default function FullFeaturedDemo() {
         loading={loading}
         checkboxSelection
         disableSelectionOnClick
-        rowThreshold={0}
+        // rowThreshold={0}
         initialState={{
           ...data.initialState,
           pinnedColumns: { left: ['__check__', 'desk'] },

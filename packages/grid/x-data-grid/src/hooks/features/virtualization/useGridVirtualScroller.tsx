@@ -255,7 +255,14 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
       topColumnsScrolledSincePreviousRender >= rootProps.columnThreshold ||
       bottomColumnsScrolledSincePreviousRender >= rootProps.columnThreshold ||
       prevTotalWidth.current !== columnsTotalWidth;
+    console.log(shouldSetState)
+    const { rowThreshold,
+      columnThreshold } = rootProps
 
+    console.log({
+      rowThreshold,
+      columnThreshold
+    })
     // TODO v6: rename event to a wider name, it's not only fired for row scrolling
     apiRef.current.publishEvent(GridEvents.rowsScroll, {
       top: scrollTop,
@@ -307,8 +314,11 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
       buffer: columnBuffer,
     });
 
-    const renderedRows = currentPage.rows.slice(firstRowToRender, lastRowToRender);
-    const renderedColumns = visibleColumns.slice(firstColumnToRender, lastColumnToRender);
+    // const renderedRows = currentPage.rows.slice(firstRowToRender, lastRowToRender);
+    // const renderedColumns = visibleColumns.slice(firstColumnToRender, lastColumnToRender);
+
+    const renderedRows = currentPage.rows.filter((row, index) => (index >= firstRowToRender && index < lastRowToRender) || (cellFocus?.id != null && row.id === cellFocus.id));
+    const renderedColumns = visibleColumns.filter((column, index) => (firstColumnToRender <= index && index < lastColumnToRender) || (cellFocus?.field != null && column.field === cellFocus.field));
 
     const rows: JSX.Element[] = [];
 

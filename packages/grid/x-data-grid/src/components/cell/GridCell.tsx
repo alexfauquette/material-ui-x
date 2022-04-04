@@ -170,13 +170,13 @@ function GridCell(props: GridCellProps) {
       const focusableElement = cellRef.current!.querySelector<HTMLElement>('[tabindex="0"]');
       const elementToFocus = focusableElement || cellRef.current;
 
-      if (doesSupportPreventScroll()) {
-        elementToFocus.focus({ preventScroll: true });
-      } else {
-        const scrollPosition = apiRef.current.getScrollPosition();
-        elementToFocus.focus();
-        apiRef.current.scroll(scrollPosition);
-      }
+      // if (doesSupportPreventScroll()) {
+      //   elementToFocus.focus({ preventScroll: true });
+      // } else {
+      //   const scrollPosition = apiRef.current.getScrollPosition();
+      elementToFocus.focus();
+      //   apiRef.current.scroll(scrollPosition);
+      // }
     }
   }, [hasFocus, cellMode, apiRef]);
 
