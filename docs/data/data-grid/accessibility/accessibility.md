@@ -8,7 +8,7 @@ title: Data Grid - Accessibility
 
 ## Guidelines
 
-it is a above dec e.g. to (I assume show errors)
+it's preceding dec for example to (I assume show errors)
 
 The most commonly encountered conformance guidelines for accessibility are:
 
