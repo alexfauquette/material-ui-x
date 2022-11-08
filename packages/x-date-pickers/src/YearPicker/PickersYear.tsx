@@ -84,13 +84,13 @@ const PickersYearButton = styled('button', {
     backgroundColor: alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
   },
   [`&.${pickersYearClasses.disabled}`]: {
-    color: theme.palette.text.secondary,
+    color: (theme.vars || theme).palette.text.secondary,
   },
   [`&.${pickersYearClasses.selected}`]: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
+    color: (theme.vars || theme).palette.primary.contrastText,
+    backgroundColor: (theme.vars || theme).palette.primary.main,
     '&:focus, &:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: (theme.vars || theme).palette.primary.dark,
     },
   },
 }));

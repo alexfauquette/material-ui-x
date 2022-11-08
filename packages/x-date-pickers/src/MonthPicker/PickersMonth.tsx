@@ -57,17 +57,17 @@ const PickersMonthRoot = styled<
   borderRadius: 18,
   cursor: 'pointer',
   '&:focus, &:hover': {
-    backgroundColor: alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
+    backgroundColor: alpha( (theme.vars || theme).palette.action.active,  (theme.vars || theme).palette.action.hoverOpacity),
   },
   '&:disabled': {
     pointerEvents: 'none',
-    color: theme.palette.text.secondary,
+    color: (theme.vars || theme).palette.text.secondary,
   },
   [`&.${pickersMonthClasses.selected}`]: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
+    color: (theme.vars || theme).palette.primary.contrastText,
+    backgroundColor: (theme.vars || theme).palette.primary.main,
     '&:focus, &:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: (theme.vars || theme).palette.primary.dark,
     },
   },
 })) as typeof Typography;
