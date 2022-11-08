@@ -57,7 +57,9 @@ const PickersMonthRoot = styled<
   borderRadius: 18,
   cursor: 'pointer',
   '&:focus, &:hover': {
-    backgroundColor: alpha( (theme.vars || theme).palette.action.active,  (theme.vars || theme).palette.action.hoverOpacity),
+    backgroundColor: theme.vars
+      ? `rgba(${theme.vars.palette.action.activeChannel} / ${theme.vars.palette.action.hoverOpacity})`
+      : alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
   },
   '&:disabled': {
     pointerEvents: 'none',
