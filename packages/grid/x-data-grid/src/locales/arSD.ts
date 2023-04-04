@@ -21,7 +21,7 @@ const arSDGrid: Partial<GridLocaleText> = {
   // Filters toolbar button text
   toolbarFilters: 'المُرشِحات',
   toolbarFiltersLabel: 'إظهار المرشِحات',
-  toolbarFiltersTooltipHide: 'إخفاء المرشِحات',
+  toolbarFiltersTooltipHide: 'إخفاءشِحات',
   toolbarFiltersTooltipShow: 'اظهر المرشِحات',
   toolbarFiltersTooltipActive: (count) =>
     count !== 1 ? `${count} من المرشِحات النشطة` : `مرشِح نشط`,
