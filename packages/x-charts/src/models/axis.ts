@@ -9,6 +9,7 @@ import type {
 import { ChartsAxisClasses } from '../ChartsAxis/axisClasses';
 import type { TickParams } from '../hooks/useTicks';
 import { ChartsTextProps } from '../internals/components/ChartsText';
+import { ChartsFormatterType } from './seriesType/common';
 
 export type D3Scale<
   Domain extends { toString(): string } = number | Date | string,
@@ -207,7 +208,13 @@ export type AxisConfig<S extends ScaleName = ScaleName, V = any> = {
    * The key used to retrieve `data` from the `dataset` prop.
    */
   dataKey?: string;
-  valueFormatter?: (value: V) => string;
+  /**
+   * Formatter used to render values in tooltip or other data display.
+   * @param {TValue} value The axis' value to render.
+   * @param {ChartsFormatterContext} context The context where value is rendered.
+   * @returns {string} The string to dispaly.
+   */
+  valueFormatter?: ChartsFormatterType<V>;
   /**
    * If `true`, hide this value in the tooltip
    */
