@@ -343,6 +343,7 @@ PieChart.propTypes = {
       }),
       id: PropTypes.string,
       innerRadius: PropTypes.number,
+      label: PropTypes.string,
       outerRadius: PropTypes.number,
       paddingAngle: PropTypes.number,
       sortingValues: PropTypes.oneOfType([

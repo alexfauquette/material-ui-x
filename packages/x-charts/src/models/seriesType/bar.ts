@@ -19,7 +19,6 @@ export interface BarSeriesType
    * The key used to retrive data from the dataset.
    */
   dataKey?: string;
-  label?: string;
   /**
    * Layout of the bars. All bar should have the same layout.
    * @default 'vertical'

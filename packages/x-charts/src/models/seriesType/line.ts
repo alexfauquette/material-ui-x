@@ -54,7 +54,6 @@ export interface LineSeriesType
   dataKey?: string;
   stack?: string;
   area?: boolean;
-  label?: string;
   curve?: CurveType;
   /**
    * Define which items of the series should display a mark.

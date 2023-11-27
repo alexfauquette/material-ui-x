@@ -7,7 +7,6 @@ export interface ScatterSeriesType extends CommonSeriesType<ScatterValueType>, C
   type: 'scatter';
   data: ScatterValueType[];
   markerSize?: number;
-  label?: string;
 }
 
 /**
