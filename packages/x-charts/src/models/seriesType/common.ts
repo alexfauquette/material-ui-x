@@ -1,14 +1,22 @@
 import type { HighlightScope } from '../../context/HighlightProvider';
 import type { StackOffset, StackOrder } from '../../internals/stackSeries';
 
+export type ChartsFormatterContext = 'axis' | 'tooltip' | 'chart';
+export type ChartsFormatterType<TValue> = (
+  value: TValue,
+  context: ChartsFormatterContext,
+) => string;
+
 export type CommonSeriesType<TValue> = {
   id?: string;
   color?: string;
   /**
    * Formatter used to render values in tooltip or other data display.
    * @param {TValue} value The series' value to render.
+   * @param {ChartsFormatterContext} context The context where value is rendered.
    * @returns {string} The string to dispaly.
    */
+  valueFormatter?: ChartsFormatterType<TValue>;
   /**
    * The label of the series.
    */

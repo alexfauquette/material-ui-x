@@ -6,11 +6,7 @@ import { useSlotProps } from '@mui/base/utils';
 import { AxisInteractionData } from '../context/InteractionProvider';
 import { SeriesContext } from '../context/SeriesContextProvider';
 import { CartesianContext } from '../context/CartesianContextProvider';
-import {
-  CartesianChartSeriesType,
-  ChartSeriesDefaultized,
-  ChartSeriesType,
-} from '../models/seriesType/config';
+import { CartesianChartSeriesType, ChartSeriesDefaultized } from '../models/seriesType/config';
 import { AxisDefaultized } from '../models/axis';
 import {
   ChartsTooltipCell,
@@ -30,7 +26,7 @@ export type ChartsAxisContentProps = {
   /**
    * The series linked to the triggered axis.
    */
-  series: ChartSeriesDefaultized<ChartSeriesType>[];
+  series: ChartSeriesDefaultized<CartesianChartSeriesType>[];
   /**
    * The properties of the triggered axis.
    */
@@ -49,12 +45,14 @@ export type ChartsAxisContentProps = {
   classes: ChartsTooltipClasses;
   sx?: SxProps<Theme>;
 };
+
 export function DefaultChartsAxisContent(props: ChartsAxisContentProps) {
   const { series, axis, dataIndex, axisValue, sx, classes } = props;
 
   if (dataIndex == null) {
     return null;
   }
+
   const axisFormatter = axis.valueFormatter ?? ((v) => v.toLocaleString());
   return (
     <ChartsTooltipPaper sx={sx} className={classes.root}>
@@ -69,8 +67,14 @@ export function DefaultChartsAxisContent(props: ChartsAxisContentProps) {
           </thead>
         )}
         <tbody>
-          {series.map(({ color, id, label, valueFormatter, data }: ChartSeriesDefaultized<any>) => {
-            const formattedValue = valueFormatter(data[dataIndex]);
+          {series.map(({ color, id, label, valueFormatter, data }) => {
+            const value = data[dataIndex];
+            if (value == null) {
+              return null;
+            }
+            // TODO: Manage to let TS understand series.data and series.valueFormatter are coherent
+            // @ts-ignore
+            const formattedValue = valueFormatter(value, 'tooltip');
             if (formattedValue == null) {
               return null;
             }
@@ -120,7 +124,7 @@ export function ChartsAxisTooltipContent(props: {
   const USED_AXIS_ID = isXaxis ? xAxisIds[0] : yAxisIds[0];
 
   const relevantSeries = React.useMemo(() => {
-    const rep: any[] = [];
+    const rep: ChartSeriesDefaultized<CartesianChartSeriesType>[] = [];
     (
       Object.keys(series).filter((seriesType) =>
         ['bar', 'line', 'scatter'].includes(seriesType),

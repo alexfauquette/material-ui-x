@@ -51,7 +51,7 @@ export function DefaultChartsItemContent<T extends ChartSeriesType = ChartSeries
 
   // TODO: Manage to let TS understand series.data and series.valueFormatter are coherent
   // @ts-ignore
-  const formattedValue = series.valueFormatter(series.data[itemData.dataIndex]);
+  const formattedValue = series.valueFormatter(series.data[itemData.dataIndex], 'tooltip');
   return (
     <ChartsTooltipPaper sx={sx} className={classes.root}>
       <ChartsTooltipTable className={classes.table}>

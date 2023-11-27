@@ -41,7 +41,8 @@ const formatter: Formatter<'pie'> = (params) => {
         }))
         .map((item) => ({
           ...item,
-          formattedValue: series[seriesId].valueFormatter?.(item) ?? item.value.toLocaleString(),
+          formattedValue:
+            series[seriesId].valueFormatter?.(item, 'chart') ?? item.value.toLocaleString(),
         })),
     };
   });
