@@ -166,7 +166,7 @@ export interface GridBaseColDef<R extends GridValidRowModel = GridValidRowModel,
   /**
    * The type of the column.
    * @default 'string'
-   * @see See {@link https://mui.com/x/react-data-grid/column-definition/#column-types column types docs} for more details.
+   * @see See {@link /x/react-data-grid/column-definition/#column-types column types docs} for more details.
    */
   type?: GridColType;
   /**
