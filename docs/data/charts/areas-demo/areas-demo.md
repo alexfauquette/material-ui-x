@@ -12,7 +12,7 @@ components: LineChart, LineElement, LineHighlightElement, LineHighlightPlot, Lin
 
 {{"demo": "SimpleAreaChart.js"}}
 
-## StackedAreaChart
+## StackedAreaCha
 
 {{"demo": "StackedAreaChart.js"}}
 
