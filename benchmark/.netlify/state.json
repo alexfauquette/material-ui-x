@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Andresy",
+			"country": {
+				"code": "FR",
+				"name": "France"
+			},
+			"subdivision": {
+				"code": "IDF",
+				"name": "Île-de-France"
+			},
+			"timezone": "Europe/Paris",
+			"latitude": 48.9808,
+			"longitude": 2.061
+		},
+		"timestamp": 1708102251125
+	}
+}

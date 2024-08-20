@@ -4,6 +4,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "start": "pnpm i && pnpm docs:dev",
+    "benchmark:browser": "pnpm --filter benchmark browser",
     "docs:dev": "pnpm --filter docs dev",
     "docs:serve": "pnpm --filter docs serve",
     "docs:create-playground": "pnpm --filter docs create-playground",
@@ -99,7 +100,7 @@
     "@next/eslint-plugin-next": "14.2.6",
     "@octokit/plugin-retry": "^7.1.1",
     "@octokit/rest": "^21.0.2",
-    "@playwright/test": "^1.44.1",
+    "@playwright/test": "^1.46.1",
     "@types/babel__core": "^7.20.5",
     "@types/babel__traverse": "^7.20.6",
     "@types/chai": "^4.3.17",
