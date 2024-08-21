@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { LineChart } from '@mui/x-charts/LineChart';
+import { LineChartPro } from '@mui/x-charts-pro/LineChartPro';
 import { dataset } from '../dataset';
 
-export default function SimpleLineChart() {
+export default function SimpleLineChartPro() {
   return (
-    <LineChart
+    <LineChartPro
+  
     width={1000}
     height={600}
       dataset={dataset}

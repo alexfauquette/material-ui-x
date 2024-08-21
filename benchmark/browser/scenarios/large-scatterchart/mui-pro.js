@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { ScatterChart } from '@mui/x-charts/ScatterChart';
+import { ScatterChartPro } from '@mui/x-charts-pro/ScatterChartPro';
 import { dataset } from '../dataset';
 
-export default function SimpleScatterChart() {
+export default function SimpleScatterChartPro() {
   return (
-    <ScatterChart
+    <ScatterChartPro
     width={1000}
     height={600}
       series={[

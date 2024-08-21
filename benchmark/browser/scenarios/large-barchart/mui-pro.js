@@ -1,18 +1,20 @@
 import * as React from 'react';
-import { ScatterChart } from '@mui/x-charts/ScatterChart';
+import { BarChartPro } from '@mui/x-charts-pro/BarChartPro';
 import { dataset } from '../dataset';
 
-export default function SimpleScatterChart() {
+export default function SimpleBarChart() {
   return (
-    <ScatterChart
+    <BarChartPro
     width={1000}
     height={600}
+      dataset={dataset}
       series={[
         {
-          data: dataset,
+          dataKey: 'y',
           label: 'pv',
         },
       ]}
+      xAxis={[{ dataKey: 'id', scaleType: 'band', tickInterval: (i) => i % 100 === 0 }]}
       grid={{ horizontal: true, vertical: true }}
       skipAnimation
     />

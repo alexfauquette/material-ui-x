@@ -11,8 +11,8 @@ export default function Rechart() {
         bottom: 20,
         left: 20,
       }}
-      width={500}
-      height={300}
+      width={1000}
+      height={600}
     >
       <CartesianGrid />
       <XAxis type="number" dataKey="x" name="stature" />

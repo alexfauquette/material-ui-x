@@ -5,8 +5,8 @@ import { dataset } from '../dataset';
 export default function Example() {
   return (
     <LineChart
-      width={500}
-      height={300}
+    width={1000}
+    height={600}
       data={dataset}
       margin={{
         top: 5,
