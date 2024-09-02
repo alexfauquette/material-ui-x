@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { animated, to } from '@react-spring/web';
 import { useCartesianContext } from '../context/CartesianProvider';
 import { MarkElement, MarkElementProps } from './MarkElement';
 import { getValueToPositionMapper } from '../hooks/useScale';
@@ -145,6 +146,7 @@ function MarkPlot(props: MarkPlotProps) {
                 })
                 .map(({ x, y, index }) => {
                   return (
+                    
                     <Mark
                       key={`${seriesId}-${index}`}
                       id={seriesId}

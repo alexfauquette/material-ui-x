@@ -43,6 +43,7 @@ import {
   ChartsOverlaySlots,
 } from '../ChartsOverlay';
 import { useLineChartProps } from './useLineChartProps';
+import { NewMarkPlot } from './NewMarkPlot';
 
 export interface LineChartSlots
   extends ChartsAxisSlots,
@@ -169,7 +170,8 @@ const LineChart = React.forwardRef(function LineChart(inProps: LineChartProps, r
       <ChartsAxis {...chartsAxisProps} />
       <g data-drawing-container>
         {/* The `data-drawing-container` indicates that children are part of the drawing area. Ref: https://github.com/mui/mui-x/issues/13659 */}
-        <MarkPlot {...markPlotProps} />
+        <NewMarkPlot {...markPlotProps} />
+        {/* <MarkPlot {...markPlotProps} /> */}
       </g>
       <LineHighlightPlot {...lineHighlightPlotProps} />
       <ChartsLegend {...legendProps} />

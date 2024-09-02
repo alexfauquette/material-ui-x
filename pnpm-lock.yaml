@@ -428,6 +428,9 @@ importers:
       '@mui/x-charts':
         specifier: workspace:*
         version: link:../packages/x-charts/build
+      '@mui/x-charts-pro':
+        specifier: workspace:*
+        version: link:../packages/x-charts-pro/build
       '@nivo/bar':
         specifier: ^0.87.0
         version: 0.87.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

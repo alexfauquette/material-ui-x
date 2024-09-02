@@ -20,6 +20,7 @@ import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import { ChartsClipPath } from '@mui/x-charts/ChartsClipPath';
 import { useLineChartProps } from '@mui/x-charts/internals';
 import { MarkPlotProps } from '@mui/x-charts';
+import { NewMarkPlot } from '@mui/x-charts/LineChart/NewMarkPlot';
 import { ResponsiveChartContainerPro } from '../ResponsiveChartContainerPro';
 import { ZoomSetup } from '../context/ZoomProvider/ZoomSetup';
 import { useZoom } from '../context/ZoomProvider/useZoom';
@@ -38,6 +39,11 @@ function LinePlotZoom(props: LinePlotProps) {
 function MarkPlotZoom(props: MarkPlotProps) {
   const { isInteracting } = useZoom();
   return <MarkPlot {...props} skipAnimation={isInteracting ? true : props.skipAnimation} />;
+}
+
+function NewMarkPlotZoom(props: MarkPlotProps) {
+  const { isInteracting } = useZoom();
+  return <NewMarkPlot {...props} skipAnimation={isInteracting ? true : props.skipAnimation} />;
 }
 
 export interface LineChartProProps extends LineChartProps, ZoomProps {}
@@ -91,7 +97,8 @@ const LineChartPro = React.forwardRef(function LineChartPro(inProps: LineChartPr
       <ChartsAxis {...chartsAxisProps} />
       <g data-drawing-container>
         {/* The `data-drawing-container` indicates that children are part of the drawing area. Ref: https://github.com/mui/mui-x/issues/13659 */}
-        <MarkPlotZoom {...markPlotProps} />
+        {/* <MarkPlotZoom {...markPlotProps} /> */}
+        <NewMarkPlotZoom {...markPlotProps} />
       </g>
       <LineHighlightPlot {...lineHighlightPlotProps} />
       <ChartsLegend {...legendProps} />

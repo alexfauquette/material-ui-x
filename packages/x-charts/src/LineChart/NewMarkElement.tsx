@@ -2,17 +2,17 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import composeClasses from '@mui/utils/composeClasses';
 import generateUtilityClass from '@mui/utils/generateUtilityClass';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import generateUtilityClasses from '@mui/utils/generateUtilityClasses';
 import { symbol as d3Symbol, symbolsFill as d3SymbolsFill } from '@mui/x-charts-vendor/d3-shape';
-import { animated, to, useSpring } from '@react-spring/web';
+import { animated, to } from '@react-spring/web';
 import { getSymbol } from '../internals/getSymbol';
 import { InteractionContext } from '../context/InteractionProvider';
 import { useInteractionItemProps } from '../hooks/useInteractionItemProps';
 import { SeriesId } from '../models/seriesType/common';
 import { useItemHighlighted } from '../context';
 
-export interface MarkElementClasses {
+export interface NewMarkElementClasses {
   /** Styles applied to the root element. */
   root: string;
   /** Styles applied to the root element when highlighted. */
@@ -21,56 +21,45 @@ export interface MarkElementClasses {
   faded: string;
 }
 
-export type MarkElementClassKey = keyof MarkElementClasses;
+export type NewMarkElementClassKey = keyof NewMarkElementClasses;
 
-interface MarkElementOwnerState {
+interface NewMarkElementOwnerState {
   id: SeriesId;
   color: string;
   isFaded: boolean;
   isHighlighted: boolean;
-  classes?: Partial<MarkElementClasses>;
+  classes?: Partial<NewMarkElementClasses>;
 }
 
-export function getMarkElementUtilityClass(slot: string) {
-  return generateUtilityClass('MuiMarkElement', slot);
+export function getNewMarkElementUtilityClass(slot: string) {
+  return generateUtilityClass('MuiNewMarkElement', slot);
 }
 
-export const markElementClasses: MarkElementClasses = generateUtilityClasses('MuiMarkElement', [
-  'root',
-  'highlighted',
-  'faded',
-]);
+export const NewmarkElementClasses: NewMarkElementClasses = generateUtilityClasses(
+  'MuiNewMarkElement',
+  ['root', 'highlighted', 'faded'],
+);
 
-const useUtilityClasses = (ownerState: MarkElementOwnerState) => {
+const useUtilityClasses = (ownerState: NewMarkElementOwnerState) => {
   const { classes, id, isFaded, isHighlighted } = ownerState;
   const slots = {
     root: ['root', `series-${id}`, isHighlighted && 'highlighted', isFaded && 'faded'],
   };
 
-  return composeClasses(slots, getMarkElementUtilityClass, classes);
+  return composeClasses(slots, getNewMarkElementUtilityClass, classes);
 };
 
-const MarkElementPath = styled(animated.path, {
-  name: 'MuiMarkElement',
+const NewMarkElementPath = styled(animated.path, {
+  name: 'MuiNewMarkElement',
   slot: 'Root',
   overridesResolver: (_, styles) => styles.root,
-})<{ ownerState: MarkElementOwnerState }>(({ ownerState, theme }) => ({
+})<{ ownerState: NewMarkElementOwnerState }>(({ ownerState, theme }) => ({
   fill: (theme.vars || theme).palette.background.paper,
   stroke: ownerState.color,
   strokeWidth: 2,
 }));
 
-const MarkElementCircle = styled(animated.circle, {
-  name: 'MuiMarkElement',
-  slot: 'Root',
-  overridesResolver: (_, styles) => styles.root,
-})<{ ownerState: MarkElementOwnerState }>(({ ownerState, theme }) => ({
-  fill: (theme.vars || theme).palette.background.paper,
-  stroke: ownerState.color,
-  strokeWidth: 2,
-}));
-
-export type MarkElementProps = Omit<MarkElementOwnerState, 'isFaded' | 'isHighlighted'> &
+export type NewMarkElementProps = Omit<NewMarkElementOwnerState, 'isFaded' | 'isHighlighted'> &
   Omit<React.SVGProps<SVGPathElement>, 'ref' | 'id'> & {
     /**
      * If `true`, animations are skipped.
@@ -87,7 +76,6 @@ export type MarkElementProps = Omit<MarkElementOwnerState, 'isFaded' | 'isHighli
     dataIndex: number;
   };
 
-const d = d3Symbol(d3SymbolsFill[getSymbol('circle')])()!;
 /**
  * Demos:
  *
@@ -96,12 +84,11 @@ const d = d3Symbol(d3SymbolsFill[getSymbol('circle')])()!;
  *
  * API:
  *
- * - [MarkElement API](https://mui.com/x/api/charts/mark-element/)
+ * - [NewMarkElement API](https://mui.com/x/api/charts/mark-element/)
  */
-function MarkElement(props: MarkElementProps) {
+function NewMarkElement(props: NewMarkElementProps) {
   const {
-    x,
-    y,
+    style,
     id,
     classes: innerClasses,
     color,
@@ -111,14 +98,13 @@ function MarkElement(props: MarkElementProps) {
     skipAnimation,
     ...other
   } = props;
-  // const theme = useTheme();
+
   const getInteractionItemProps = useInteractionItemProps();
   const { isFaded, isHighlighted } = useItemHighlighted({
     seriesId: id,
   });
   const { axis } = React.useContext(InteractionContext);
 
-  const position = useSpring({ to: { x, y }, immediate: skipAnimation });
   const ownerState = {
     id,
     classes: innerClasses,
@@ -129,54 +115,20 @@ function MarkElement(props: MarkElementProps) {
   const classes = useUtilityClasses(ownerState);
 
   return (
-    // <animated.path
-    <MarkElementPath
-      d={d}
-      // stroke={color}
-      style={{
-        transform: to([position.x, position.y], (pX, pY) => `translate(${pX}px, ${pY}px)`),
-        transformOrigin: to([position.x, position.y], (pX, pY) => `${pX}px ${pY}px`),
-      }}
+    <NewMarkElementPath
+      {...other}
+      style={style}
       ownerState={ownerState}
       className={classes.root}
+      d={d3Symbol(d3SymbolsFill[getSymbol(shape)])()!}
       onClick={onClick}
       cursor={onClick ? 'pointer' : 'unset'}
       {...getInteractionItemProps({ type: 'line', seriesId: id, dataIndex })}
     />
-
-    // <animated.circle
-    // <MarkElementCircle
-    // {...other}
-    // cx={position.x}
-    // cy={position.y}
-    // r={5}
-    // fill={(theme.vars || theme).palette.background.paper}
-    // stroke={color}
-    // stroke={ownerState.color}
-    // strokeWidth={2}
-    //   ownerState={ownerState}
-    //   className={classes.root}
-    //   onClick={onClick}
-    //   cursor={onClick ? 'pointer' : 'unset'}
-    //   {...getInteractionItemProps({ type: 'line', seriesId: id, dataIndex })}
-    // />
-    // <MarkElementPath
-    //   {...other}
-    //   style={{
-    //     transform: to([position.x, position.y], (pX, pY) => `translate(${pX}px, ${pY}px)`),
-    //     transformOrigin: to([position.x, position.y], (pX, pY) => `${pX}px ${pY}px`),
-    //   }}
-    //   ownerState={ownerState}
-    //   className={classes.root}
-    //   d={d}
-    //   onClick={onClick}
-    //   cursor={onClick ? 'pointer' : 'unset'}
-    //   {...getInteractionItemProps({ type: 'line', seriesId: id, dataIndex })}
-    // />
   );
 }
 
-MarkElement.propTypes = {
+NewMarkElement.propTypes = {
   // ----------------------------- Warning --------------------------------
   // | These PropTypes are generated from the TypeScript type definitions |
   // | To update them edit the TypeScript types and run "pnpm proptypes"  |
@@ -199,4 +151,4 @@ MarkElement.propTypes = {
   skipAnimation: PropTypes.bool,
 } as any;
 
-export { MarkElement };
+export { NewMarkElement };

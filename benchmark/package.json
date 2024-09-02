@@ -19,6 +19,7 @@
     "@mui/styles": "^5.16.5",
     "@mui/system": "^5.16.5",
     "@mui/x-charts": "workspace:*",
+    "@mui/x-charts-pro": "workspace:*",
     "recharts": "^2.12.7",
     "@nivo/line": "^0.87.0",
     "@nivo/bar": "^0.87.0",

@@ -165,70 +165,73 @@ async function run() {
   try {
     const cases = [
       // Line
-      {
-        name: 'MUI LineChart',
-        path: './large-linechart/mui.js',
-      },
-      {
-        name: 'MUI LineChart Pro',
-        path: './large-linechart/mui-pro.js',
-      },
-      {
-        name: 'MUI LineChart Pro Zoomed',
-        path: './large-linechart/mui-pro-zoomed.js',
-      },
-      {
-        name: 'Recharts LineChart',
-        path: './large-linechart/recharts.js',
-      },
-      {
-        name: 'Nivo LineChart',
-        path: './large-linechart/nivo.js',
-      },
+      // {
+      //   name: 'MUI LineChart',
+      //   path: './large-linechart/mui.js',
+      // },
+      // {
+      //   name: 'MUI LineChart Pro',
+      //   path: './large-linechart/mui-pro.js',
+      // },
+      // {
+      //   name: 'MUI LineChart Pro Zoomed',
+      //   path: './large-linechart/mui-pro-zoomed.js',
+      // },
+      // {
+      //   name: 'Recharts LineChart',
+      //   path: './large-linechart/recharts.js',
+      // },
+      // {
+      //   name: 'Nivo LineChart',
+      //   path: './large-linechart/nivo.js',
+      // },
 
-      // Scatter
-      {
-        name: 'MUI ScatterChart',
-        path: './large-scatterchart/mui.js',
-      },
-      {
-        name: 'MUI ScatterChart Pro',
-        path: './large-scatterchart/mui-pro.js',
-      },
-      {
-        name: 'MUI ScatterChart Pro Zoomed',
-        path: './large-scatterchart/mui-pro-zoomed.js',
-      },
-      {
-        name: 'Recharts ScatterChart',
-        path: './large-scatterchart/recharts.js',
-      },
-      {
-        name: 'Nivo ScatterChart',
-        path: './large-scatterchart/nivo.js',
-      },
+      // // Scatter
+      // {
+      //   name: 'MUI ScatterChart',
+      //   path: './large-scatterchart/mui.js',
+      // },
+      // {
+      //   name: 'MUI ScatterChart Pro',
+      //   path: './large-scatterchart/mui-pro.js',
+      // },
+      // {
+      //   name: 'MUI ScatterChart Pro Zoomed',
+      //   path: './large-scatterchart/mui-pro-zoomed.js',
+      // },
+      // {
+      //   name: 'Recharts ScatterChart',
+      //   path: './large-scatterchart/recharts.js',
+      // },
+      // {
+      //   name: 'Nivo ScatterChart',
+      //   path: './large-scatterchart/nivo.js',
+      // },
 
-      // Bar
-      {
-        name: 'MUI BarChart',
-        path: './large-barchart/mui.js',
-      },
-      {
-        name: 'MUI BarChart Pro',
-        path: './large-barchart/mui-pro.js',
-      },
-      {
-        name: 'MUI BarChart Pro Zoomed',
-        path: './large-barchart/mui-pro-zoomed.js',
-      },
-      {
-        name: 'Recharts BarChart',
-        path: './large-barchart/recharts.js',
-      },
-      {
-        name: 'Nivo BarChart',
-        path: './large-barchart/nivo.js',
-      },
+      // // Bar
+      // {
+      //   name: 'MUI BarChart',
+      //   path: './large-barchart/mui.js',
+      // },
+      // {
+      //   name: 'MUI BarChart Pro',
+      //   path: './large-barchart/mui-pro.js',
+      // },
+      // {
+      //   name: 'MUI BarChart Pro Zoomed',
+      //   path: './large-barchart/mui-pro-zoomed.js',
+      // },
+      // {
+      //   name: 'Recharts BarChart',
+      //   path: './large-barchart/recharts.js',
+      // },
+      // {
+      //   name: 'Nivo BarChart',
+      //   path: './large-barchart/nivo.js',
+      // },
+
+      { name: 'react-spring/useTransition', path: './react-spring/useTransition.js' },
+      // { name: 'react-spring/useSpring', path: './react-spring/useSpring.js' },
     ];
 
     let baseline;
