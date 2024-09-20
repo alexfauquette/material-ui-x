@@ -1,40 +1,30 @@
 'use client';
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { animated } from '@react-spring/web';
 import PropTypes from 'prop-types';
-import { barLabelClasses } from './barLabelClasses';
 import { BarLabelOwnerState } from './BarLabel.types';
 import { chartsLightColorsVars } from '../../context/ThemeProvider';
-
-export const BarLabelComponent = styled(animated.text, {
-  name: 'MuiBarLabel',
-  slot: 'Root',
-  overridesResolver: (_, styles) => [
-    { [`&.${barLabelClasses.faded}`]: styles.faded },
-    { [`&.${barLabelClasses.highlighted}`]: styles.highlighted },
-    styles.root,
-  ],
-})(({ theme }) => ({
-  ...theme?.typography?.body2,
-  stroke: 'none',
-  fill: chartsLightColorsVars.textPrimary,
-  transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
-  textAnchor: 'middle',
-  dominantBaseline: 'central',
-  pointerEvents: 'none',
-  opacity: 1,
-  [`&.${barLabelClasses.faded}`]: {
-    opacity: 0.3,
-  },
-}));
 
 export type BarLabelProps = Omit<React.SVGProps<SVGTextElement>, 'ref' | 'id'> & BarLabelOwnerState;
 
 function BarLabel(props: BarLabelProps) {
   const { seriesId, dataIndex, color, isFaded, isHighlighted, classes, ...otherProps } = props;
 
-  return <BarLabelComponent {...otherProps} />;
+  const { typography } = useTheme();
+
+  return (
+    <animated.text
+      {...typography.body2}
+      stroke="none"
+      fill={chartsLightColorsVars.textPrimary}
+      textAnchor="middle"
+      dominantBaseline="central"
+      pointerEvents="none"
+      opacity={1}
+      {...otherProps}
+    />
+  );
 }
 
 BarLabel.propTypes = {

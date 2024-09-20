@@ -1,9 +1,12 @@
 'use client';
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import { ChartsColorPalette, ThemeProviderProps } from './Theme.types';
 import { blueberryTwilightPalette } from '../../colorPalettes';
 import { DirectionContext } from './DirectionContext';
 import { ColorsContext } from './ColorsContext';
+import { barElementClasses } from '../../BarChart/BarElement';
+import { barLabelClasses } from '../../BarChart';
 
 const defaultLightPalette: ChartsColorPalette = {
   divider: 'rgba(0, 0, 0, 0.12)',
@@ -61,6 +64,27 @@ export const chartsLightColorsVars = {
   primary: 'var(--charts-primary)',
 } as const;
 
+export const StyledWrapper = styled('div', {
+  name: 'MuiChartThemeProvider',
+  slot: 'Root',
+})(() => ({
+  [`& .${barElementClasses.root}`]: {
+    transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
+    [`&.${barElementClasses.highlighted}`]: {
+      filter: 'saturate(110%)',
+    },
+    [`&.${barElementClasses.faded}`]: {
+      opacity: '0.3',
+    },
+  },
+  [`& .${barLabelClasses.root}`]: {
+    transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
+    [`&.${barLabelClasses.faded}`]: {
+      opacity: 0.3,
+    },
+  },
+}));
+
 export function ThemeProvider(props: ThemeProviderProps) {
   const {
     mode = 'light',
@@ -80,14 +104,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
   return (
     <DirectionContext.Provider value={direction ?? 'ltr'}>
       <ColorsContext.Provider value={computedColors}>
-        <div
+        <StyledWrapper
           style={{
             ...paletteToVars({ ...defaultLightPalette, ...palette }, 'light'),
             ...paletteToVars({ ...defaultDarkPalette, ...darkPalette }, 'dark'),
           }}
         >
           {children}
-        </div>
+        </StyledWrapper>
       </ColorsContext.Provider>
     </DirectionContext.Provider>
   );

@@ -1,7 +1,6 @@
 'use client';
-import { styled, SxProps, Theme } from '@mui/material/styles';
-import PropTypes from 'prop-types';
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { useAxisEvents } from '../hooks/useAxisEvents';
 
 type ViewBox = {
@@ -10,7 +9,7 @@ type ViewBox = {
   width?: number;
   height?: number;
 };
-export interface ChartsSurfaceProps {
+export interface ChartsSurfaceProps extends React.HTMLAttributes<SVGSVGElement> {
   /**
    * The width of the chart in px.
    */
@@ -23,7 +22,6 @@ export interface ChartsSurfaceProps {
   className?: string;
   title?: string;
   desc?: string;
-  sx?: SxProps<Theme>;
   children?: React.ReactNode;
   /**
    * If `true`, the charts will not listen to the mouse move event.
@@ -32,15 +30,6 @@ export interface ChartsSurfaceProps {
    */
   disableAxisListener?: boolean;
 }
-
-const ChartChartsSurfaceStyles = styled('svg', {
-  name: 'MuiChartsSurface',
-  slot: 'Root',
-})(() => ({
-  // This prevents default touch actions when using the svg on mobile devices.
-  // For example, prevent page scroll & zoom.
-  touchAction: 'none',
-}));
 
 const ChartsSurface = React.forwardRef<SVGSVGElement, ChartsSurfaceProps>(function ChartsSurface(
   props: ChartsSurfaceProps,
@@ -55,6 +44,7 @@ const ChartsSurface = React.forwardRef<SVGSVGElement, ChartsSurfaceProps>(functi
     className,
     title,
     desc,
+    style,
     ...other
   } = props;
   const svgView = { width, height, x: 0, y: 0, ...viewBox };
@@ -62,18 +52,19 @@ const ChartsSurface = React.forwardRef<SVGSVGElement, ChartsSurfaceProps>(functi
   useAxisEvents(disableAxisListener);
 
   return (
-    <ChartChartsSurfaceStyles
+    <svg
       width={width}
       height={height}
       viewBox={`${svgView.x} ${svgView.y} ${svgView.width} ${svgView.height}`}
       ref={ref}
       className={className}
+      style={{ touchAction: 'none', ...style }}
       {...other}
     >
       <title>{title}</title>
       <desc>{desc}</desc>
       {children}
-    </ChartChartsSurfaceStyles>
+    </svg>
   );
 });
 
