@@ -3,19 +3,19 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import useSlotProps from '@mui/utils/useSlotProps';
 import composeClasses from '@mui/utils/composeClasses';
-import { useTheme, Theme, styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { useRtl } from '@mui/system/RtlProvider';
 import { useCartesianContext } from '../context/CartesianProvider';
 import { useTicks } from '../hooks/useTicks';
 import { useDrawingArea } from '../hooks/useDrawingArea';
 import { ChartsYAxisProps } from '../models/axis';
-import { AxisRoot } from '../internals/components/AxisSharedComponents';
 import { ChartsText, ChartsTextProps } from '../ChartsText';
 import { getAxisUtilityClass } from '../ChartsAxis/axisClasses';
 import { isInfinity } from '../internals/isInfinity';
 import { isBandScale } from '../internals/isBandScale';
+import { chartsLightColorsVars } from '../context/ThemeProvider';
 
-const useUtilityClasses = (ownerState: ChartsYAxisProps & { theme: Theme }) => {
+const useUtilityClasses = (ownerState: ChartsYAxisProps) => {
   const { classes, position } = ownerState;
   const slots = {
     root: ['root', 'directionY', position],
@@ -28,12 +28,6 @@ const useUtilityClasses = (ownerState: ChartsYAxisProps & { theme: Theme }) => {
 
   return composeClasses(slots, getAxisUtilityClass, classes);
 };
-
-const YAxisRoot = styled(AxisRoot, {
-  name: 'MuiChartsYAxis',
-  slot: 'Root',
-  overridesResolver: (props, styles) => styles.root,
-})({});
 
 const defaultProps = {
   position: 'left',
@@ -80,13 +74,12 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     tickLabelPlacement,
     tickInterval,
     tickLabelInterval,
-    sx,
   } = defaultizedProps;
 
   const theme = useTheme();
   const isRtl = useRtl();
 
-  const classes = useUtilityClasses({ ...defaultizedProps, theme });
+  const classes = useUtilityClasses({ ...defaultizedProps });
 
   const { left, top, width, height, isPointInside } = useDrawingArea();
 
@@ -114,11 +107,14 @@ function ChartsYAxis(props: ChartsYAxisProps) {
   const Label = slots?.axisLabel ?? ChartsText;
 
   const revertAnchor = (!isRtl && position === 'right') || (isRtl && position !== 'right');
+
   const axisTickLabelProps = useSlotProps({
     elementType: TickLabel,
     externalSlotProps: slotProps?.axisTickLabel,
     additionalProps: {
       style: {
+        fill: chartsLightColorsVars.textPrimary,
+        ...theme.typography.caption,
         fontSize: tickFontSize,
         textAnchor: revertAnchor ? 'start' : 'end',
         dominantBaseline: 'central',
@@ -134,6 +130,8 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     externalSlotProps: slotProps?.axisLabel,
     additionalProps: {
       style: {
+        ...theme.typography.body1,
+        fill: chartsLightColorsVars.textPrimary,
         fontSize: labelFontSize,
         angle: positionSign * 90,
         textAnchor: 'middle',
@@ -163,13 +161,20 @@ function ChartsYAxis(props: ChartsYAxisProps) {
   }
 
   return (
-    <YAxisRoot
+    <g
       transform={`translate(${position === 'right' ? left + width : left}, 0)`}
       className={classes.root}
-      sx={sx}
     >
       {!disableLine && (
-        <Line y1={top} y2={top + height} className={classes.line} {...lineSlotProps} />
+        <Line
+          y1={top}
+          y2={top + height}
+          className={classes.line}
+          stroke={chartsLightColorsVars.textPrimary}
+          shapeRendering="crispEdges"
+          strokeWidth={1}
+          {...lineSlotProps}
+        />
       )}
 
       {yTicks.map(({ formattedValue, offset, labelOffset, value }, index) => {
@@ -190,6 +195,8 @@ function ChartsYAxis(props: ChartsYAxisProps) {
               <Tick
                 x2={positionSign * tickSize}
                 className={classes.tick}
+                stroke={chartsLightColorsVars.textPrimary}
+                shapeRendering="crispEdges"
                 {...slotProps?.axisTick}
               />
             )}
@@ -210,7 +217,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
           <Label {...labelRefPoint} {...axisLabelProps} text={label} />
         </g>
       )}
-    </YAxisRoot>
+    </g>
   );
 }
 

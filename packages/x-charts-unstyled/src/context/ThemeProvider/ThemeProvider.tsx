@@ -20,7 +20,21 @@ const defaultDarkPalette: ChartsColorPalette = {
   primary: '#90caf9',
 };
 
-function paletteToVars(palette: ChartsColorPalette): React.StyleHTMLAttributes<'div'> {
+function paletteToVars(
+  palette: ChartsColorPalette,
+  mode: 'light' | 'dark',
+): React.StyleHTMLAttributes<'div'> {
+  if (mode === 'dark') {
+    return {
+      // @ts-ignore
+      '--charts-dark-divider': palette.divider,
+      '--charts-dark-text-primary': palette.textPrimary,
+      '--charts-dark-text-secondary': palette.textSecondary,
+      '--charts-dark-background': palette.background,
+      '--charts-dark-primary': palette.primary,
+    };
+  }
+
   return {
     // @ts-ignore
     '--charts-divider': palette.divider,
@@ -30,6 +44,22 @@ function paletteToVars(palette: ChartsColorPalette): React.StyleHTMLAttributes<'
     '--charts-primary': palette.primary,
   };
 }
+
+export const chartsDarkColorsVars = {
+  divider: 'var(--charts-dark-divider)',
+  textPrimary: 'var(--charts-dark-text-primary)',
+  textSecondary: 'var(--charts-dark-text-secondary)',
+  background: 'var(--charts-dark-background)',
+  primary: 'var(--charts-dark-primary)',
+} as const;
+
+export const chartsLightColorsVars = {
+  divider: 'var(--charts-divider)',
+  textPrimary: 'var(--charts-text-primary)',
+  textSecondary: 'var(--charts-text-secondary)',
+  background: 'var(--charts-background)',
+  primary: 'var(--charts-primary)',
+} as const;
 
 export function ThemeProvider(props: ThemeProviderProps) {
   const {
@@ -52,9 +82,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
       <ColorsContext.Provider value={computedColors}>
         <div
           style={{
-            ...paletteToVars({ ...defaultLightPalette, ...palette }),
-            // @ts-ignore
-            ':where(.mode-dark)': paletteToVars({ ...defaultDarkPalette, ...darkPalette }),
+            ...paletteToVars({ ...defaultLightPalette, ...palette }, 'light'),
+            ...paletteToVars({ ...defaultDarkPalette, ...darkPalette }, 'dark'),
           }}
         >
           {children}

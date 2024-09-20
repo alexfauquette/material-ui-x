@@ -17,6 +17,8 @@ import { PluginProvider, PluginProviderProps } from '../context/PluginProvider';
 import { useChartContainerProps } from './useChartContainerProps';
 import { AxisConfig, ChartsXAxisProps, ChartsYAxisProps, ScaleName } from '../models/axis';
 import { MakeOptional } from '../models/helpers';
+import { ThemeProvider } from '../context/ThemeProvider';
+import { ThemeProviderProps } from '../context/ThemeProvider/Theme.types';
 
 export type ChartContainerProps = Omit<
   ChartsSurfaceProps &
@@ -41,9 +43,13 @@ export type ChartContainerProps = Omit<
    */
   yAxis?: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, 'id'>[];
   children?: React.ReactNode;
+  themeProviderProps?: ThemeProviderProps;
 };
 
-const ChartContainer = React.forwardRef(function ChartContainer(props: ChartContainerProps, ref) {
+const ChartContainer = React.forwardRef(function ChartContainer(
+  { themeProviderProps, ...props }: ChartContainerProps,
+  ref,
+) {
   const {
     children,
     drawingProviderProps,
@@ -56,24 +62,26 @@ const ChartContainer = React.forwardRef(function ChartContainer(props: ChartCont
   } = useChartContainerProps(props, ref);
 
   return (
-    <DrawingProvider {...drawingProviderProps}>
-      <PluginProvider {...pluginProviderProps}>
-        <SeriesProvider {...seriesProviderProps}>
-          <CartesianProvider {...cartesianProviderProps}>
-            <ZAxisContextProvider {...zAxisContextProps}>
-              <InteractionProvider>
-                <HighlightedProvider {...highlightedProviderProps}>
-                  <ChartsSurface {...chartsSurfaceProps}>
-                    <ChartsAxesGradients />
-                    {children}
-                  </ChartsSurface>
-                </HighlightedProvider>
-              </InteractionProvider>
-            </ZAxisContextProvider>
-          </CartesianProvider>
-        </SeriesProvider>
-      </PluginProvider>
-    </DrawingProvider>
+    <ThemeProvider {...themeProviderProps}>
+      <DrawingProvider {...drawingProviderProps}>
+        <PluginProvider {...pluginProviderProps}>
+          <SeriesProvider {...seriesProviderProps}>
+            <CartesianProvider {...cartesianProviderProps}>
+              <ZAxisContextProvider {...zAxisContextProps}>
+                <InteractionProvider>
+                  <HighlightedProvider {...highlightedProviderProps}>
+                    <ChartsSurface {...chartsSurfaceProps}>
+                      <ChartsAxesGradients />
+                      {children}
+                    </ChartsSurface>
+                  </HighlightedProvider>
+                </InteractionProvider>
+              </ZAxisContextProvider>
+            </CartesianProvider>
+          </SeriesProvider>
+        </PluginProvider>
+      </DrawingProvider>
+    </ThemeProvider>
   );
 });
 

@@ -5,6 +5,7 @@ import { animated } from '@react-spring/web';
 import PropTypes from 'prop-types';
 import { barLabelClasses } from './barLabelClasses';
 import { BarLabelOwnerState } from './BarLabel.types';
+import { chartsLightColorsVars } from '../../context/ThemeProvider';
 
 export const BarLabelComponent = styled(animated.text, {
   name: 'MuiBarLabel',
@@ -17,7 +18,7 @@ export const BarLabelComponent = styled(animated.text, {
 })(({ theme }) => ({
   ...theme?.typography?.body2,
   stroke: 'none',
-  fill: (theme.vars || theme)?.palette?.text?.primary,
+  fill: chartsLightColorsVars.textPrimary,
   transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
   textAnchor: 'middle',
   dominantBaseline: 'central',
