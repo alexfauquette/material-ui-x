@@ -32,10 +32,10 @@ export interface BarElementOwnerState {
 }
 
 export function getBarElementUtilityClass(slot: string) {
-  return generateUtilityClass('MuiBarElement', slot);
+  return generateUtilityClass('BarElement', slot);
 }
 
-export const barElementClasses: BarElementClasses = generateUtilityClasses('MuiBarElement', [
+export const barElementClasses: BarElementClasses = generateUtilityClasses('BarElement', [
   'root',
   'highlighted',
   'faded',
@@ -49,7 +49,6 @@ const useUtilityClasses = (ownerState: BarElementOwnerState) => {
 
   return composeClasses(slots, getBarElementUtilityClass, classes);
 };
-
 
 interface BarProps
   extends Omit<

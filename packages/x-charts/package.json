@@ -42,6 +42,7 @@
     "@babel/runtime": "^7.25.7",
     "@mui/utils": "^5.16.6 || ^6.0.0",
     "@mui/x-charts-vendor": "workspace:*",
+    "@mui/x-charts-unstyled": "workspace:*",
     "@mui/x-internals": "workspace:*",
     "@react-spring/rafz": "^9.7.5",
     "@react-spring/web": "^9.7.5",

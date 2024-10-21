@@ -2,12 +2,19 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useThemeProps } from '@mui/material/styles';
-import { BarPlot, BarPlotProps, BarPlotSlotProps, BarPlotSlots } from './BarPlot';
+import { ChartsClipPath } from '@mui/x-charts-unstyled/ChartsClipPath';
+import {
+  BarPlot,
+  BarPlotProps,
+  BarPlotSlotProps,
+  BarPlotSlots,
+  barElementClasses,
+} from '@mui/x-charts-unstyled/BarChart';
 import {
   ResponsiveChartContainer,
   ResponsiveChartContainerProps,
-} from '../ResponsiveChartContainer';
-import { ChartsAxis, ChartsAxisProps } from '../ChartsAxis';
+} from '@mui/x-charts-unstyled/ResponsiveChartContainer';
+import { ChartsAxis, ChartsAxisProps } from '@mui/x-charts-unstyled/ChartsAxis';
 import { BarSeriesType } from '../models/seriesType/bar';
 import { MakeOptional } from '../models/helpers';
 import {
@@ -15,27 +22,29 @@ import {
   ChartsTooltipProps,
   ChartsTooltipSlotProps,
   ChartsTooltipSlots,
-} from '../ChartsTooltip';
+} from '@mui/x-charts-unstyled/ChartsTooltip';
 import {
   ChartsLegend,
   ChartsLegendProps,
   ChartsLegendSlots,
   ChartsLegendSlotProps,
-} from '../ChartsLegend';
-import { ChartsAxisHighlight, ChartsAxisHighlightProps } from '../ChartsAxisHighlight';
-import { ChartsClipPath } from '../ChartsClipPath';
+} from '@mui/x-charts-unstyled/ChartsLegend';
+import {
+  ChartsAxisHighlight,
+  ChartsAxisHighlightProps,
+} from '@mui/x-charts-unstyled/ChartsAxisHighlight';
 import { ChartsAxisSlots, ChartsAxisSlotProps } from '../models/axis';
-import { ChartsGrid, ChartsGridProps } from '../ChartsGrid';
+import { ChartsGrid, ChartsGridProps } from '@mui/x-charts-unstyled/ChartsGrid';
 import {
   ChartsOnAxisClickHandler,
   ChartsOnAxisClickHandlerProps,
-} from '../ChartsOnAxisClickHandler';
+} from '@mui/x-charts-unstyled/ChartsOnAxisClickHandler';
 import {
   ChartsOverlay,
   ChartsOverlayProps,
   ChartsOverlaySlotProps,
   ChartsOverlaySlots,
-} from '../ChartsOverlay/ChartsOverlay';
+} from '@mui/x-charts-unstyled/ChartsOverlay/ChartsOverlay';
 import { useBarChartProps } from './useBarChartProps';
 
 export interface BarChartSlots
@@ -129,7 +138,28 @@ const BarChart = React.forwardRef(function BarChart(inProps: BarChartProps, ref)
   } = useBarChartProps(props);
 
   return (
-    <ResponsiveChartContainer ref={ref} {...chartContainerProps}>
+    <ResponsiveChartContainer
+      ref={ref}
+      {...chartContainerProps}
+      sx={[
+        {
+          [`& .${barElementClasses.root}`]: {
+            opacity: 1,
+            transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
+            [`&.${barElementClasses.faded}`]: {
+              opacity: 0.3,
+            },
+            [`&.${barElementClasses.highlighted}`]: {
+              filter: `brightness(0.5)`,
+            },
+          },
+        },
+        // You cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
+        ...(Array.isArray(chartContainerProps.sx)
+          ? chartContainerProps.sx
+          : [chartContainerProps.sx]),
+      ]}
+    >
       {props.onAxisClick && <ChartsOnAxisClickHandler {...axisClickHandlerProps} />}
       <ChartsGrid {...gridProps} />
       <g {...clipPathGroupProps}>
