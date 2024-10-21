@@ -3,12 +3,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import useSlotProps from '@mui/utils/useSlotProps';
 import composeClasses from '@mui/utils/composeClasses';
-import { useTheme } from '@mui/material/styles';
 import { useCartesianContext } from '../context/CartesianProvider';
 import { useTicks, TickItemType } from '../hooks/useTicks';
 import { AxisDefaultized, ChartsXAxisProps } from '../models/axis';
 import { getAxisUtilityClass } from '../ChartsAxis/axisClasses';
-
 import { ChartsText, ChartsTextProps } from '../ChartsText';
 import { getMinXTranslation } from '../internals/geometry';
 import { useMounted } from '../hooks/useMounted';
@@ -17,6 +15,7 @@ import { getWordsByLines } from '../internals/getWordsByLines';
 import { isInfinity } from '../internals/isInfinity';
 import { isBandScale } from '../internals/isBandScale';
 import { chartsLightColorsVars } from '../context/ThemeProvider';
+import { useTypography } from '../context/ThemeProvider/TypographyContext';
 
 const useUtilityClasses = (ownerState: ChartsXAxisProps) => {
   const { classes, position } = ownerState;
@@ -132,7 +131,8 @@ function ChartsXAxis(props: ChartsXAxisProps) {
     tickLabelPlacement,
   } = defaultizedProps;
 
-  const theme = useTheme();
+  const axisLabelTypography = useTypography('axisLabel');
+  const axisTickLabelTypography = useTypography('axisTickLabel');
   const classes = useUtilityClasses({ ...defaultizedProps });
   const { left, top, width, height, isPointInside } = useDrawingArea();
 
@@ -151,7 +151,7 @@ function ChartsXAxis(props: ChartsXAxisProps) {
     additionalProps: {
       style: {
         fill: chartsLightColorsVars.textPrimary,
-        ...theme.typography.caption,
+        ...axisTickLabelTypography,
         textAnchor: 'middle',
         dominantBaseline: position === 'bottom' ? 'hanging' : 'auto',
         fontSize: tickFontSize ?? 12,
@@ -188,8 +188,8 @@ function ChartsXAxis(props: ChartsXAxisProps) {
     externalSlotProps: slotProps?.axisLabel,
     additionalProps: {
       style: {
-        ...theme.typography.body1,
-        fill:chartsLightColorsVars.textPrimary,
+        ...axisLabelTypography,
+        fill: chartsLightColorsVars.textPrimary,
         fontSize: labelFontSize ?? 14,
         textAnchor: 'middle',
         dominantBaseline: position === 'bottom' ? 'hanging' : 'auto',

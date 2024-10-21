@@ -3,7 +3,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import useSlotProps from '@mui/utils/useSlotProps';
 import composeClasses from '@mui/utils/composeClasses';
-import { useTheme } from '@mui/material/styles';
 import { useRtl } from '@mui/system/RtlProvider';
 import { useCartesianContext } from '../context/CartesianProvider';
 import { useTicks } from '../hooks/useTicks';
@@ -14,6 +13,7 @@ import { getAxisUtilityClass } from '../ChartsAxis/axisClasses';
 import { isInfinity } from '../internals/isInfinity';
 import { isBandScale } from '../internals/isBandScale';
 import { chartsLightColorsVars } from '../context/ThemeProvider';
+import { useTypography } from '../context/ThemeProvider/TypographyContext';
 
 const useUtilityClasses = (ownerState: ChartsYAxisProps) => {
   const { classes, position } = ownerState;
@@ -76,7 +76,8 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     tickLabelInterval,
   } = defaultizedProps;
 
-  const theme = useTheme();
+  const axisLabelTypography = useTypography('axisLabel');
+  const axisTickLabelTypography = useTypography('axisTickLabel');
   const isRtl = useRtl();
 
   const classes = useUtilityClasses({ ...defaultizedProps });
@@ -114,7 +115,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     additionalProps: {
       style: {
         fill: chartsLightColorsVars.textPrimary,
-        ...theme.typography.caption,
+        ...axisTickLabelTypography,
         fontSize: tickFontSize,
         textAnchor: revertAnchor ? 'start' : 'end',
         dominantBaseline: 'central',
@@ -130,7 +131,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     externalSlotProps: slotProps?.axisLabel,
     additionalProps: {
       style: {
-        ...theme.typography.body1,
+        ...axisLabelTypography,
         fill: chartsLightColorsVars.textPrimary,
         fontSize: labelFontSize,
         angle: positionSign * 90,

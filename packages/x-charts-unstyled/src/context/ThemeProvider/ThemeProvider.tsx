@@ -7,6 +7,7 @@ import { DirectionContext } from './DirectionContext';
 import { ColorsContext } from './ColorsContext';
 import { barElementClasses } from '../../BarChart/BarElement';
 import { barLabelClasses } from '../../BarChart';
+import { defaultTypography, TypographyContext } from './TypographyContext';
 
 const defaultLightPalette: ChartsColorPalette = {
   divider: 'rgba(0, 0, 0, 0.12)',
@@ -104,14 +105,16 @@ export function ThemeProvider(props: ThemeProviderProps) {
   return (
     <DirectionContext.Provider value={direction ?? 'ltr'}>
       <ColorsContext.Provider value={computedColors}>
-        <StyledWrapper
-          style={{
-            ...paletteToVars({ ...defaultLightPalette, ...palette }, 'light'),
-            ...paletteToVars({ ...defaultDarkPalette, ...darkPalette }, 'dark'),
-          }}
-        >
-          {children}
-        </StyledWrapper>
+        <TypographyContext.Provider value={defaultTypography}>
+          <StyledWrapper
+            style={{
+              ...paletteToVars({ ...defaultLightPalette, ...palette }, 'light'),
+              ...paletteToVars({ ...defaultDarkPalette, ...darkPalette }, 'dark'),
+            }}
+          >
+            {children}
+          </StyledWrapper>
+        </TypographyContext.Provider>
       </ColorsContext.Provider>
     </DirectionContext.Provider>
   );
