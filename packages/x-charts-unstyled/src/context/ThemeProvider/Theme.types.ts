@@ -6,6 +6,10 @@ export type ChartsColorPalette = {
   textSecondary: string;
   background: string;
   primary: string;
+  /** The color used to display a band highlight. */
+  highlightBand: string;
+  /** The color used to display a line highlight. */
+  highlightLine: string;
 };
 
 type TypographyType = {

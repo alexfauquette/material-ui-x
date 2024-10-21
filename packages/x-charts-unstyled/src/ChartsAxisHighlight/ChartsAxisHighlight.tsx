@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import composeClasses from '@mui/utils/composeClasses';
 import generateUtilityClass from '@mui/utils/generateUtilityClass';
 import generateUtilityClasses from '@mui/utils/generateUtilityClasses';
-import { styled } from '@mui/material/styles';
 import { InteractionContext } from '../context/InteractionProvider';
 import { useCartesianContext } from '../context/CartesianProvider';
 import { getValueToPositionMapper } from '../hooks/useScale';
 import { isBandScale } from '../internals/isBandScale';
+import { chartsColorsVars } from '../context/ThemeProvider';
 
 export interface ChartsAxisHighlightClasses {
   /** Styles applied to the root element. */
@@ -33,40 +33,6 @@ const useUtilityClasses = () => {
 
   return composeClasses(slots, getAxisHighlightUtilityClass);
 };
-
-export const ChartsAxisHighlightPath = styled('path', {
-  name: 'MuiChartsAxisHighlight',
-  slot: 'Root',
-  overridesResolver: (_, styles) => styles.root,
-})<{ ownerState: { axisHighlight: AxisHighlight } }>(({ theme }) => ({
-  pointerEvents: 'none',
-  variants: [
-    {
-      props: {
-        axisHighlight: 'band',
-      },
-      style: {
-        fill: 'white',
-        fillOpacity: 0.1,
-        ...theme.applyStyles('light', {
-          fill: 'gray',
-        }),
-      },
-    },
-    {
-      props: {
-        axisHighlight: 'line',
-      },
-      style: {
-        strokeDasharray: '5 2',
-        stroke: '#ffffff',
-        ...theme.applyStyles('light', {
-          stroke: '#000000',
-        }),
-      },
-    },
-  ],
-}));
 
 type AxisHighlight = 'none' | 'line' | 'band';
 
@@ -124,7 +90,7 @@ function ChartsAxisHighlight(props: ChartsAxisHighlightProps) {
   return (
     <React.Fragment>
       {isBandScaleX && xScale(axisX.value) !== undefined && (
-        <ChartsAxisHighlightPath
+        <path
           // @ts-expect-error, xScale value is checked in the statement above
           d={`M ${xScale(axisX.value) - (xScale.step() - xScale.bandwidth()) / 2} ${
             yScale.range()[0]
@@ -132,12 +98,13 @@ function ChartsAxisHighlight(props: ChartsAxisHighlightProps) {
             yScale.range()[1] - yScale.range()[0]
           } l ${-xScale.step()} 0 Z`}
           className={classes.root}
-          ownerState={{ axisHighlight: 'band' }}
+          fill={chartsColorsVars.highlightBand}
+          fillOpacity={0.1}
         />
       )}
 
       {isBandScaleY && yScale(axisY.value) !== undefined && (
-        <ChartsAxisHighlightPath
+        <path
           d={`M ${xScale.range()[0]} ${
             // @ts-expect-error, yScale value is checked in the statement above
             yScale(axisY.value) - (yScale.step() - yScale.bandwidth()) / 2
@@ -145,27 +112,31 @@ function ChartsAxisHighlight(props: ChartsAxisHighlightProps) {
             xScale.range()[1] - xScale.range()[0]
           } 0 l 0 ${-yScale.step()} Z`}
           className={classes.root}
-          ownerState={{ axisHighlight: 'band' }}
+          fill={chartsColorsVars.highlightBand}
+          fillOpacity={0.1}
         />
       )}
 
       {xAxisHighlight === 'line' && axis.x !== null && (
-        <ChartsAxisHighlightPath
-          d={`M ${getXPosition(axis.x.value)} ${yScale.range()[0]} L ${getXPosition(
-            axis.x.value,
-          )} ${yScale.range()[1]}`}
+        <line
+          x1={getXPosition(axis.x.value)}
+          x2={getXPosition(axis.x.value)}
+          y1={yScale.range()[0]}
+          y2={yScale.range()[1]}
           className={classes.root}
-          ownerState={{ axisHighlight: 'line' }}
+          fill={chartsColorsVars.highlightLine}
         />
       )}
 
       {yAxisHighlight === 'line' && axis.y !== null && (
-        <ChartsAxisHighlightPath
-          d={`M ${xScale.range()[0]} ${getYPosition(axis.y.value)} L ${
-            xScale.range()[1]
-          } ${getYPosition(axis.y.value)}`}
+        <line
+          x1={xScale.range()[0]}
+          x2={xScale.range()[1]}
+          y1={getYPosition(axis.y.value)}
+          y2={getYPosition(axis.y.value)}
           className={classes.root}
-          ownerState={{ axisHighlight: 'line' }}
+          strokeDasharray="5 2"
+          fill={chartsColorsVars.highlightLine}
         />
       )}
     </React.Fragment>

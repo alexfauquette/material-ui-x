@@ -12,6 +12,8 @@ export const defaultLightPalette: ChartsColorPalette = {
   textSecondary: 'rgba(0, 0, 0, 0.6)',
   background: '#fff',
   primary: '#1976d2',
+  highlightBand: 'gray',
+  highlightLine: '#fff',
 };
 
 export const defaultDarkPalette: ChartsColorPalette = {
@@ -20,14 +22,8 @@ export const defaultDarkPalette: ChartsColorPalette = {
   textSecondary: 'rgba(255, 255, 255, 0.7)',
   background: '#121212',
   primary: '#90caf9',
-};
-
-export const paletteVars: ChartsColorPalette = {
-  divider: 'var(--charts-dark-divider)',
-  textPrimary: 'var(--charts-dark-text-primary)',
-  textSecondary: 'var(--charts-dark-text-secondary)',
-  background: 'var(--charts-dark-background)',
-  primary: 'var(--charts-dark-primary)',
+  highlightBand: '#fff',
+  highlightLine: '#000000',
 };
 
 export function paletteToVars(palette: ChartsColorPalette): React.StyleHTMLAttributes<'div'> {
@@ -38,6 +34,8 @@ export function paletteToVars(palette: ChartsColorPalette): React.StyleHTMLAttri
     '--charts-text-secondary': palette.textSecondary,
     '--charts-background': palette.background,
     '--charts-primary': palette.primary,
+    '--charts-highlight-band': palette.highlightBand,
+    '--charts-highlight-line': palette.highlightLine,
   };
 }
 
@@ -47,6 +45,8 @@ export const chartsColorsVars = {
   textSecondary: 'var(--charts-text-secondary)',
   background: 'var(--charts-background)',
   primary: 'var(--charts-primary)',
+  highlightBand: 'var(--charts-highlight-band)',
+  highlightLine: 'var(--charts-highlight-line)',
 } as const;
 
 export function ThemeProvider(props: ThemeProviderProps) {
