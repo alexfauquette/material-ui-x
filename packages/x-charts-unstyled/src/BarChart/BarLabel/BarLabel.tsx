@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { animated } from '@react-spring/web';
 import PropTypes from 'prop-types';
 import { BarLabelOwnerState } from './BarLabel.types';
-import { chartsLightColorsVars } from '../../context/ThemeProvider';
+import { chartsColorsVars } from '../../context/ThemeProvider';
 
 export type BarLabelProps = Omit<React.SVGProps<SVGTextElement>, 'ref' | 'id'> & BarLabelOwnerState;
 
@@ -17,7 +17,7 @@ function BarLabel(props: BarLabelProps) {
     <animated.text
       {...typography.body2}
       stroke="none"
-      fill={chartsLightColorsVars.textPrimary}
+      fill={chartsColorsVars.textPrimary}
       textAnchor="middle"
       dominantBaseline="central"
       pointerEvents="none"

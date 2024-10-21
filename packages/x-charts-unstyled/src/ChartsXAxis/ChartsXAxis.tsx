@@ -14,7 +14,7 @@ import { useDrawingArea } from '../hooks/useDrawingArea';
 import { getWordsByLines } from '../internals/getWordsByLines';
 import { isInfinity } from '../internals/isInfinity';
 import { isBandScale } from '../internals/isBandScale';
-import { chartsLightColorsVars } from '../context/ThemeProvider';
+import { chartsColorsVars } from '../context/ThemeProvider';
 import { useTypography } from '../context/ThemeProvider/TypographyContext';
 
 const useUtilityClasses = (ownerState: ChartsXAxisProps) => {
@@ -150,7 +150,7 @@ function ChartsXAxis(props: ChartsXAxisProps) {
     externalSlotProps: slotProps?.axisTickLabel,
     additionalProps: {
       style: {
-        fill: chartsLightColorsVars.textPrimary,
+        fill: chartsColorsVars.textPrimary,
         ...axisTickLabelTypography,
         textAnchor: 'middle',
         dominantBaseline: position === 'bottom' ? 'hanging' : 'auto',
@@ -189,7 +189,7 @@ function ChartsXAxis(props: ChartsXAxisProps) {
     additionalProps: {
       style: {
         ...axisLabelTypography,
-        fill: chartsLightColorsVars.textPrimary,
+        fill: chartsColorsVars.textPrimary,
         fontSize: labelFontSize ?? 14,
         textAnchor: 'middle',
         dominantBaseline: position === 'bottom' ? 'hanging' : 'auto',
@@ -217,7 +217,7 @@ function ChartsXAxis(props: ChartsXAxisProps) {
           x1={left}
           x2={left + width}
           className={classes.line}
-          stroke={chartsLightColorsVars.textPrimary}
+          stroke={chartsColorsVars.textPrimary}
           shapeRendering="crispEdges"
           strokeWidth={1}
           {...slotProps?.axisLine}
@@ -236,7 +236,7 @@ function ChartsXAxis(props: ChartsXAxisProps) {
               <Tick
                 y2={positionSign * tickSize}
                 className={classes.tick}
-                stroke={chartsLightColorsVars.textPrimary}
+                stroke={chartsColorsVars.textPrimary}
                 shapeRendering="crispEdges"
                 {...slotProps?.axisTick}
               />

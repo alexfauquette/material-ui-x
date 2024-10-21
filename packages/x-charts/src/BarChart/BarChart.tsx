@@ -1,7 +1,12 @@
 'use client';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useThemeProps } from '@mui/material/styles';
+import { styled, useThemeProps } from '@mui/material/styles';
+import {
+  paletteToVars,
+  defaultLightPalette,
+  defaultDarkPalette,
+} from '@mui/x-charts-unstyled/context';
 import { ChartsClipPath } from '@mui/x-charts-unstyled/ChartsClipPath';
 import {
   BarPlot,
@@ -109,6 +114,21 @@ export interface BarChartProps
   layout?: BarSeriesType['layout'];
 }
 
+const StyledResponsiveChartContainer = styled(ResponsiveChartContainer)(({ theme }) => ({
+  [`& .${barElementClasses.root}`]: {
+    opacity: 1,
+    transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
+    [`&.${barElementClasses.faded}`]: {
+      opacity: 0.3,
+    },
+    [`&.${barElementClasses.highlighted}`]: {
+      filter: `brightness(1.5)`,
+    },
+  },
+  ...paletteToVars(defaultLightPalette),
+  ...theme.applyStyles('dark', paletteToVars(defaultDarkPalette)),
+}));
+
 /**
  * Demos:
  *
@@ -138,28 +158,7 @@ const BarChart = React.forwardRef(function BarChart(inProps: BarChartProps, ref)
   } = useBarChartProps(props);
 
   return (
-    <ResponsiveChartContainer
-      ref={ref}
-      {...chartContainerProps}
-      sx={[
-        {
-          [`& .${barElementClasses.root}`]: {
-            opacity: 1,
-            transition: 'opacity 0.2s ease-in, fill 0.2s ease-in',
-            [`&.${barElementClasses.faded}`]: {
-              opacity: 0.3,
-            },
-            [`&.${barElementClasses.highlighted}`]: {
-              filter: `brightness(0.5)`,
-            },
-          },
-        },
-        // You cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
-        ...(Array.isArray(chartContainerProps.sx)
-          ? chartContainerProps.sx
-          : [chartContainerProps.sx]),
-      ]}
-    >
+    <StyledResponsiveChartContainer ref={ref} {...chartContainerProps}>
       {props.onAxisClick && <ChartsOnAxisClickHandler {...axisClickHandlerProps} />}
       <ChartsGrid {...gridProps} />
       <g {...clipPathGroupProps}>
@@ -172,7 +171,7 @@ const BarChart = React.forwardRef(function BarChart(inProps: BarChartProps, ref)
       {!props.loading && <ChartsTooltip {...tooltipProps} />}
       <ChartsClipPath {...clipPathProps} />
       {children}
-    </ResponsiveChartContainer>
+    </StyledResponsiveChartContainer>
   );
 });
 

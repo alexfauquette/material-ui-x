@@ -12,7 +12,7 @@ import { ChartsText, ChartsTextProps } from '../ChartsText';
 import { getAxisUtilityClass } from '../ChartsAxis/axisClasses';
 import { isInfinity } from '../internals/isInfinity';
 import { isBandScale } from '../internals/isBandScale';
-import { chartsLightColorsVars } from '../context/ThemeProvider';
+import { chartsColorsVars } from '../context/ThemeProvider';
 import { useTypography } from '../context/ThemeProvider/TypographyContext';
 
 const useUtilityClasses = (ownerState: ChartsYAxisProps) => {
@@ -114,7 +114,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     externalSlotProps: slotProps?.axisTickLabel,
     additionalProps: {
       style: {
-        fill: chartsLightColorsVars.textPrimary,
+        fill: chartsColorsVars.textPrimary,
         ...axisTickLabelTypography,
         fontSize: tickFontSize,
         textAnchor: revertAnchor ? 'start' : 'end',
@@ -132,7 +132,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
     additionalProps: {
       style: {
         ...axisLabelTypography,
-        fill: chartsLightColorsVars.textPrimary,
+        fill: chartsColorsVars.textPrimary,
         fontSize: labelFontSize,
         angle: positionSign * 90,
         textAnchor: 'middle',
@@ -171,7 +171,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
           y1={top}
           y2={top + height}
           className={classes.line}
-          stroke={chartsLightColorsVars.textPrimary}
+          stroke={chartsColorsVars.textPrimary}
           shapeRendering="crispEdges"
           strokeWidth={1}
           {...lineSlotProps}
@@ -196,7 +196,7 @@ function ChartsYAxis(props: ChartsYAxisProps) {
               <Tick
                 x2={positionSign * tickSize}
                 className={classes.tick}
-                stroke={chartsLightColorsVars.textPrimary}
+                stroke={chartsColorsVars.textPrimary}
                 shapeRendering="crispEdges"
                 {...slotProps?.axisTick}
               />
