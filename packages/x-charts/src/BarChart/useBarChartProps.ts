@@ -1,9 +1,9 @@
 'use client';
 import useId from '@mui/utils/useId';
+import { BarPlotProps } from '@mui/x-charts-unstyled/BarChart';
 import type { BarChartProps } from './BarChart';
 import { DEFAULT_X_AXIS_KEY, DEFAULT_Y_AXIS_KEY } from '../constants';
 import { ResponsiveChartContainerProps } from '../ResponsiveChartContainer';
-import { BarPlotProps } from './BarPlot';
 import { ChartsOnAxisClickHandlerProps } from '../ChartsOnAxisClickHandler';
 import { ChartsGridProps } from '../ChartsGrid';
 import { ChartsClipPathProps } from '../ChartsClipPath';

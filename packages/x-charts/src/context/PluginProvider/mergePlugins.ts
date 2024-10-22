@@ -3,12 +3,17 @@ import { ChartSeriesType } from '../../models/seriesType/config';
 import { SeriesFormatter, SeriesFormatterConfig } from './SeriesFormatter.types';
 import { ColorProcessor, ColorProcessorsConfig } from './ColorProcessor.types';
 import { ExtremumGetter, ExtremumGettersConfig } from './ExtremumGetter.types';
-import { plugin as barPlugin } from '../../BarChart/plugin';
+// import { plugin as barPlugin } from '../../BarChart/plugin';
 import { plugin as scatterPlugin } from '../../ScatterChart/plugin';
 import { plugin as linePlugin } from '../../LineChart/plugin';
 import { plugin as piePlugin } from '../../PieChart/plugin';
 
-export const defaultPlugins = [barPlugin, scatterPlugin, linePlugin, piePlugin];
+export const defaultPlugins = [
+  // barPlugin,
+  scatterPlugin,
+  linePlugin,
+  piePlugin,
+];
 
 export function mergePlugins(plugins?: ChartsPlugin<ChartSeriesType>[]) {
   const defaultizedPlugins = plugins ?? defaultPlugins;
